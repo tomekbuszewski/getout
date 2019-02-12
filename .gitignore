@@ -1,0 +1,8 @@
+.idea/
+node_modules/
+/coverage
+/2018-10-09_server_errors.log
+/2018-10-08_server_combined.log
+/2018-10-09_server_combined.log
+*.log
+*.map
