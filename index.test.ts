@@ -28,21 +28,23 @@ describe("GetOut tests", () => {
 
   it ("should return proper completion in percents", () => {
     expect(getCompletion({
-      start: "2019-02-01",
-      finish: "2019-02-28",
-      now: "2019-02-14",
-      handler: getDate,
-      dateHandler: humanDate,
       asPercent: false,
+      dateHandler: humanDate,
+      difference,
+      finish: "2019-02-28",
+      handler: getDate,
+      now: "2019-02-14",
+      start: "2019-02-01",
     })).toBe(46);
 
     expect(getCompletion({
-      start: "2019-02-01",
-      finish: "2019-02-28",
-      now: "2019-02-14",
-      handler: getDate,
-      dateHandler: humanDate,
       asPercent: true,
+      dateHandler: humanDate,
+      difference,
+      finish: "2019-02-28",
+      handler: getDate,
+      now: "2019-02-14",
+      start: "2019-02-01",
     })).toBe("46%");
   });
 });
