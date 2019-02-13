@@ -54,5 +54,11 @@ describe("GetOut tests", () => {
       finish: "2019-02-28",
       start: "2019-02-01",
     })).toBeLessThanOrEqual(100);
+
+    expect(getCompletion({
+      finish: "2019-02-28",
+      now: "2019-02-14",
+      start: "2019-02-01",
+    })).toBeLessThanOrEqual(46);
   });
 });

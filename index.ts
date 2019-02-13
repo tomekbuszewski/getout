@@ -7,13 +7,13 @@ interface IDate {
 }
 
 interface ICompletion {
-  asPercent?: boolean;
-  dateHandler: (input: number) => IDate;
-  dateServer: (input: string) => number;
-  diffHandler: (start: string, finish: string, format?: string, endOfDay?: boolean) => number;
   finish: string;
-  now?: number | string;
   start: string;
+  asPercent?: boolean;
+  dateHandler?: (input: number) => IDate;
+  dateServer?: (input: string) => number;
+  diffHandler?: (start: string, finish: string, format?: string, endOfDay?: boolean) => number;
+  now?: number | string;
 }
 
 const getDate = (dateSource: string): number => {
@@ -63,9 +63,9 @@ const getPercentage = (partial: number, total: number, asPercent?: boolean): str
 
 const getCompletion = ({
      asPercent = false,
-     dateHandler,
-     dateServer,
-     diffHandler,
+     dateHandler = humanDate,
+     dateServer = getDate,
+     diffHandler = difference,
      finish,
      now = Date.now(),
      start,
@@ -86,3 +86,5 @@ export {
   getCompletion,
   getPercentage,
 };
+
+export default getCompletion;
