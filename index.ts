@@ -9,17 +9,17 @@ interface IDate {
 interface ICompletion {
   asPercent?: boolean;
   dateHandler: (input: number) => IDate;
-  difference: (start: string, finish: string, format?: string, endOfDay?: boolean) => number;
+  dateServer: (input: string) => number;
+  diffHandler: (start: string, finish: string, format?: string, endOfDay?: boolean) => number;
   finish: string;
-  handler: (input: string) => number;
   now?: number | string;
   start: string;
 }
 
-const getDate = (humanDate: string): number => {
-  const dateArray: string[] = humanDate.split("-");
+const getDate = (dateSource: string): number => {
+  const dateArray: string[] = dateSource.split("-");
   const year: number = Number(dateArray[0]);
-  const month: number = Number(dateArray[1]) -1; // month starts from 0
+  const month: number = Number(dateArray[1]) - 1; // month starts from 0
   const day: number = Number(dateArray[2]);
 
   return new Date(year, month, day).getTime();
@@ -35,7 +35,7 @@ const humanDate = (input: number): IDate => {
     hours: hoursInitial % 24,
     minutes: minutesInitial % 60,
     seconds: secondsInitial % 60,
-  }
+  };
 };
 
 const difference = (start: string, finish: string, format?: string, endOfDay?: boolean): number => {
@@ -62,18 +62,19 @@ const getPercentage = (partial: number, total: number, asPercent?: boolean): str
 };
 
 const getCompletion = ({
-                         asPercent = false,
-                         dateHandler, now = Date.now(),
-                         difference,
-                         finish,
-                         handler,
-                         start,
-                       }: ICompletion): number | string => {
-  const startDate: number = handler(start);
-  const nowDate: number = typeof now === "number" ? now : handler(now);
+     asPercent = false,
+     dateHandler,
+     dateServer,
+     diffHandler,
+     finish,
+     now = Date.now(),
+     start,
+   }: ICompletion): number | string => {
+  const startDate: number = dateServer(start);
+  const nowDate: number = typeof now === "number" ? now : dateServer(now);
 
   const daysPassed: number = dateHandler(nowDate - startDate).days;
-  const daysInTotal: number = difference(start, finish, "days", true);
+  const daysInTotal: number = diffHandler(start, finish, "days", true);
 
   return getPercentage(daysPassed, daysInTotal, asPercent);
 };
@@ -84,4 +85,4 @@ export {
   getDate,
   getCompletion,
   getPercentage,
-}
+};

@@ -5,7 +5,6 @@
     "max-line-length": {
       "options": [120]
     },
-    "interface-name": [true, "never-prefix"],
     "member-ordering": false,
     "new-parens": true,
     "no-arg": true,

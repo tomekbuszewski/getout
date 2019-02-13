@@ -1,9 +1,9 @@
 import {
   difference,
-  humanDate,
-  getDate,
   getCompletion,
+  getDate,
   getPercentage,
+  humanDate,
 } from "./index";
 
 describe("GetOut tests", () => {
@@ -30,9 +30,9 @@ describe("GetOut tests", () => {
     expect(getCompletion({
       asPercent: false,
       dateHandler: humanDate,
-      difference,
+      dateServer: getDate,
+      diffHandler: difference,
       finish: "2019-02-28",
-      handler: getDate,
       now: "2019-02-14",
       start: "2019-02-01",
     })).toBe(46);
@@ -40,11 +40,19 @@ describe("GetOut tests", () => {
     expect(getCompletion({
       asPercent: true,
       dateHandler: humanDate,
-      difference,
+      dateServer: getDate,
+      diffHandler: difference,
       finish: "2019-02-28",
-      handler: getDate,
       now: "2019-02-14",
       start: "2019-02-01",
     })).toBe("46%");
+
+    expect(getCompletion({
+      dateHandler: humanDate,
+      dateServer: getDate,
+      diffHandler: difference,
+      finish: "2019-02-28",
+      start: "2019-02-01",
+    })).toBeLessThanOrEqual(100);
   });
 });
